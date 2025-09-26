@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./TestContainerizedApp
-          file: ./TestContainerizedApp/TestContainerizedApp/Dockerfile
+          file: ./TestContainerizedApp/Dockerfile
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
