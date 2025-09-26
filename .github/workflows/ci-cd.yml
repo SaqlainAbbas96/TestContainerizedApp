@@ -28,7 +28,6 @@ jobs:
 
       - name: Test
         run: |
-          # Add tests if you have them. Placeholder
           echo "No tests configured"
 
       - name: Log in to GHCR
@@ -37,12 +36,16 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set lowercase image name
+          id: vars
+          run: echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/testcontainerizedapp" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./testcontainerizedapp
-          file: ./testcontainerizedapp/Dockerfile
+          context: ./TestContainerizedApp
+          file: ./TestContainerizedApp/Dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/testcontainerizedapp:latest
