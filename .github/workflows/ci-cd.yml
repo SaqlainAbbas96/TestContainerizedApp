@@ -38,7 +38,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Set lowercase image name
-        id: vars
         run: echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/testcontainerizedapp" >> $GITHUB_ENV
 
       - name: Build and push Docker image
@@ -48,8 +47,8 @@ jobs:
           file: ./TestContainerizedApp/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/testcontainerizedapp:latest
-            ghcr.io/${{ github.repository_owner }}/testcontainerizedapp:sha-${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
 
       - name: Image info
-        run: docker image inspect ghcr.io/${{ github.repository_owner }}/testcontainerizedapp:latest || true
+        run: docker image inspect ${{ env.IMAGE_NAME }}:latest || true
