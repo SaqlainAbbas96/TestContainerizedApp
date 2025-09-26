@@ -1,0 +1,23 @@
+services:
+  testcontainerizedapp:
+    build:
+      context: ..
+      dockerfile: TestContainerizedApp/Dockerfile
+    container_name: TestContainerizedApp
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: Test123.@Test
+      POSTGRES_DB: usersdb
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
