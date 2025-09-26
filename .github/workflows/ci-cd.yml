@@ -43,7 +43,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./TestContainerizedApp
+          context: .
           file: ./TestContainerizedApp/Dockerfile
           push: true
           tags: |
